@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LactoPack | Engineering Freshness</title>
+    <meta name="description" content="NovaPack™ - The next-generation packaging container engineered for freshness preservation, structural safety, transportation efficiency, and sustainability.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+</head>
+<body>
+    <div class="cursor"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/images/lacktopak-industries-logo.png" alt="LactoPack Logo" class="brand-logo" />
+            </div>
+            <div class="nav-links">
+                <a href="#birth">Origin</a>
+                <a href="#why">Benefits</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#family">Models</a>
+            </div>
+            <a href="#cta" class="nav-cta">Discover NovaPack™</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. Hero -->
+        <section class="hero">
+            <div class="hero-bg">
+                <video autoplay loop muted playsinline>
+                    <source src="assets/videos/video1.mp4" type="video/mp4">
+                </video>
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">NovaPack™</h1>
+                <p class="hero-subtitle">by LactoPack</p>
+                <p class="hero-tagline">Engineering Freshness.</p>
+                <div class="scroll-indicator">
+                    <span>Scroll to explore</span>
+                    <div class="scroll-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Birth of NovaPack™ -->
+        <section id="birth" class="birth-section">
+            <div class="birth-container">
+                <div class="birth-video-wrapper">
+                    <canvas id="birth-canvas"></canvas>
+                </div>
+                <div class="birth-content">
+                    <div class="birth-text-block">
+                        <h2>The Birth of<br>NovaPack™</h2>
+                        <p>A ground-up rethinking of liquid preservation technology. We stripped away the legacy constraints of dairy packaging to engineer a container defined by pure performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Why NovaPack™ -->
+        <section id="why" class="why-section">
+            <div class="section-header">
+                <h2>Engineered for Perfection</h2>
+                <p>Every millimeter serves a purpose.</p>
+            </div>
+            <div class="zigzag-container">
+                <!-- Row 1 -->
+                <div class="zigzag-row animate-on-scroll">
+                    <div class="zigzag-visual">
+                        <img src="assets/images/floating-product-shot.jpeg" alt="NovaPack Floating">
+                    </div>
+                    <div class="zigzag-content feature-block">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="M12 8v4l3 3"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Freshness Protection</h3>
+                            <p>Advanced UV and oxygen barrier technology extends shelf life by up to 40%.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="zigzag-row reverse animate-on-scroll">
+                    <div class="zigzag-visual">
+                        <img src="assets/images/floating-product-shot.jpeg" alt="NovaPack Floating" style="transform: scaleX(-1);">
+                    </div>
+                    <div class="zigzag-content feature-block">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Structural Strength</h3>
+                            <p>Geometrically optimized load-bearing ribs provide superior crush resistance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="zigzag-row animate-on-scroll">
+                    <div class="zigzag-visual">
+                        <img src="assets/images/floating-product-shot.jpeg" alt="NovaPack Floating">
+                    </div>
+                    <div class="zigzag-content feature-block">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Logistics Efficiency</h3>
+                            <p>Nest-and-stack architecture increases pallet density by 22%.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="zigzag-row reverse animate-on-scroll">
+                    <div class="zigzag-visual">
+                        <img src="assets/images/floating-product-shot.jpeg" alt="NovaPack Floating" style="transform: scaleX(-1);">
+                    </div>
+                    <div class="zigzag-content feature-block">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12 6v6l4.24 4.24"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Sustainability</h3>
+                            <p>100% molecularly recyclable composite. Zero waste process.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Layer Explorer -->
+        <section class="layer-explorer">
+            <div class="layer-content">
+                <h2>Tri-Core Architecture</h2>
+                <p>Scroll to explore the engineering inside.</p>
+            </div>
+            <div class="layer-visual">
+                <img src="assets/images/exploded-view.jpeg" alt="Exploded View">
+                <div class="layer-labels">
+                    <div class="layer-label" data-layer="1">
+                        <h4>Protective Shell</h4>
+                        <p>Impact-resistant matte finish</p>
+                    </div>
+                    <div class="layer-label" data-layer="2">
+                        <h4>Structural Core</h4>
+                        <p>Micro-cellular framework</p>
+                    </div>
+                    <div class="layer-label" data-layer="3">
+                        <h4>Barrier Layer</h4>
+                        <p>O2 & UV blocking membrane</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Product Gallery -->
+        <section id="gallery" class="gallery-section">
+            <div class="section-header">
+                <h2>Precision in Detail</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-speed="1.1">
+                    <img src="assets/images/front-three-quarter-studio-shot.jpeg" alt="Front View">
+                </div>
+                <div class="gallery-item" data-speed="0.9">
+                    <img src="assets/images/top-perspective-render.jpeg" alt="Top View">
+                </div>
+                <div class="gallery-item" data-speed="1.2">
+                    <img src="assets/images/macro-detailrender.jpeg" alt="Macro Detail">
+                </div>
+                <div class="gallery-item" data-speed="0.8">
+                    <img src="assets/images/cross-section-render.jpeg" alt="Cross Section">
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Product Family -->
+        <section id="family" class="family-section">
+            <div class="family-container">
+                <div class="family-header-content">
+                    <h2>The NovaPack™ Series</h2>
+                    <div class="family-selector horizontal">
+                        <button class="family-btn active" data-model="nova">NovaPack™</button>
+                        <button class="family-btn" data-model="mini">NovaPack Mini™</button>
+                        <button class="family-btn" data-model="max">NovaPack Max™</button>
+                        <button class="family-btn" data-model="eco">NovaPack Eco™</button>
+                    </div>
+                </div>
+                
+                <div class="family-split">
+                    <div class="family-visual">
+                        <img src="assets/images/product-family-shot.jpeg" alt="Product Family" class="active" id="family-img">
+                    </div>
+                    <div class="family-details">
+                        <h3 id="family-title">NovaPack™</h3>
+                        <p id="family-desc">The flagship 1.0L container. Engineered for optimal everyday use with standard refrigeration shelf spacing.</p>
+                        <div class="specs-grid">
+                            <div class="spec">
+                                <span class="spec-label">Capacity</span>
+                                <span class="spec-value" id="family-cap">1.0L</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-label">Weight</span>
+                                <span class="spec-value" id="family-weight">42g</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Engineering Excellence -->
+        <section class="engineering-section">
+            <video autoplay loop muted playsinline class="eng-bg">
+                <source src="assets/videos/video2.mp4" type="video/mp4">
+            </video>
+            <div class="eng-overlay"></div>
+            <div class="eng-content">
+                <h2>Uncompromising Standards</h2>
+                <p>Manufactured in automated clean-room facilities with micrometer tolerances.</p>
+            </div>
+        </section>
+
+        <!-- 8. Sustainability -->
+        <section class="sustainability-section">
+            <div class="sus-grid">
+                <div class="sus-content">
+                    <h2>Closing the Loop</h2>
+                    <p>We designed NovaPack™ to not only protect its contents, but to protect our environment. It represents a paradigm shift in material lifecycle management.</p>
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <span class="stat-number">100<span class="pct">%</span></span>
+                            <span class="stat-label">Recyclable Material</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">0<span class="pct">%</span></span>
+                            <span class="stat-label">Material Waste</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sus-visual">
+                    <img src="assets/images/sustainability-visualization.jpeg" alt="Sustainability">
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Final CTA -->
+        <section id="cta" class="cta-section">
+            <video autoplay loop muted playsinline class="cta-bg">
+                <source src="assets/videos/video3.mp4" type="video/mp4">
+            </video>
+            <div class="cta-overlay"></div>
+            <div class="cta-content">
+                <div class="logo cta-logo">
+                    <img src="assets/images/lacktopak-industries-logo.png" alt="LactoPack Logo" class="brand-logo cta-brand-logo" />
+                </div>
+                <h2>The Future of Packaging.</h2>
+                <button class="magnetic-btn">
+                    <span class="btn-text">Partner With Us</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info animate-on-scroll">
+                    <div class="section-header" style="text-align: left; margin: 0 0 3rem 0; max-width: 100%;">
+                        <h2>Partner With Us</h2>
+                        <p>Discuss integration, wholesale, and engineering partnership opportunities.</p>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <h4>Global Headquarters</h4>
+                            <p>100 Innovation Way<br>Industrial District, CA 94025</p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>Direct Inquiry</h4>
+                            <p>partners@lactopack.com<br>+1 (800) 555-PACK</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper animate-on-scroll">
+                    <form id="partner-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" required placeholder="John Doe">
+                            </div>
+                            <div class="input-group">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" required placeholder="Company Name">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Work Email</label>
+                            <input type="email" id="email" required placeholder="john@company.com">
+                        </div>
+                        <div class="input-group">
+                            <label for="message">Inquiry Details</label>
+                            <textarea id="message" rows="4" required placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="assets/images/lacktopak-industries-logo.png" alt="LactoPack Logo" class="brand-logo footer-brand-logo" />
+                    </div>
+                    <p>Engineering Freshness.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-col">
+                        <h4>Products</h4>
+                        <a href="#">NovaPack™</a>
+                        <a href="#">NovaPack Mini™</a>
+                        <a href="#">NovaPack Max™</a>
+                        <a href="#">NovaPack Eco™</a>
+                    </div>
+                    <div class="link-col">
+                        <h4>Company</h4>
+                        <a href="#">About Us</a>
+                        <a href="#">Engineering</a>
+                        <a href="#">Sustainability</a>
+                        <a href="#">Careers</a>
+                    </div>
+                    <div class="link-col">
+                        <h4>Legal</h4>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Patents</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LactoPack Technologies Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

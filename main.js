@@ -1,0 +1,278 @@
+// Initialize Lenis
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+});
+
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
+// Link GSAP to Lenis
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time)=>{
+  lenis.raf(time * 1000)
+});
+gsap.ticker.lagSmoothing(0);
+
+// Custom Cursor
+const cursor = document.querySelector('.cursor');
+const magneticBtns = document.querySelectorAll('.magnetic-btn, .nav-links a, .nav-cta, .family-btn, .gallery-item');
+
+document.addEventListener('mousemove', (e) => {
+    gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.1,
+        ease: 'power2.out'
+    });
+});
+
+magneticBtns.forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+        cursor.classList.add('active');
+    });
+    btn.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
+    });
+});
+
+// Magnetic button effect
+const magneticElements = document.querySelectorAll('.magnetic-btn');
+magneticElements.forEach(elem => {
+    elem.addEventListener('mousemove', (e) => {
+        const rect = elem.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        gsap.to(elem, {
+            x: x * 0.3,
+            y: y * 0.3,
+            duration: 0.5,
+            ease: 'power2.out'
+        });
+    });
+});
+
+// Hero Animation
+window.addEventListener('load', () => {
+    const tl = gsap.timeline();
+    tl.to('.hero-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
+      .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
+      .to('.hero-tagline', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.7')
+      .to('.scroll-indicator', { opacity: 1, duration: 1 }, '-=0.5');
+});
+
+// Image Sequence Scrubbing (Birth Section)
+const birthSection = document.querySelector('.birth-section');
+const canvas = document.getElementById('birth-canvas');
+
+if (canvas) {
+    const context = canvas.getContext('2d');
+    const frameCount = 240;
+    const currentFrame = index => (
+        `assets/image-frames/${(index + 1).toString().padStart(5, '0')}.webp`
+    );
+
+    const images = [];
+    const seq = { frame: 0 };
+
+    for (let i = 0; i < frameCount; i++) {
+        const img = new Image();
+        img.src = currentFrame(i);
+        images.push(img);
+    }
+
+    images[0].onload = () => {
+        canvas.width = images[0].width;
+        canvas.height = images[0].height;
+        context.drawImage(images[0], 0, 0);
+    };
+
+    gsap.to(seq, {
+        frame: frameCount - 1,
+        snap: "frame",
+        ease: "none",
+        scrollTrigger: {
+            trigger: birthSection,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1.5,
+            pin: '.birth-container',
+        },
+        onUpdate: render
+    });
+
+    function render() {
+        if (images[seq.frame] && images[seq.frame].complete) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(images[seq.frame], 0, 0);
+        }
+    }
+}
+
+// Reliable On-Scroll Reveal for Zigzag Rows
+gsap.utils.toArray('.zigzag-row').forEach((row) => {
+    ScrollTrigger.create({
+        trigger: row,
+        start: 'top 85%',
+        toggleClass: 'visible',
+        once: true
+    });
+});
+
+// Fade in all section headers
+gsap.utils.toArray('.section-header').forEach((header) => {
+    gsap.from(header, {
+        scrollTrigger: {
+            trigger: header,
+            start: 'top 85%',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out'
+    });
+});
+
+// Layer Explorer Reveal
+const layers = document.querySelectorAll('.layer-label');
+layers.forEach((layer, index) => {
+    gsap.to(layer, {
+        scrollTrigger: {
+            trigger: '.layer-explorer',
+            start: 'top 50%',
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        delay: index * 0.3,
+        ease: 'power2.out'
+    });
+});
+
+// Gallery Staggered Reveal
+gsap.to('.gallery-item', {
+    scrollTrigger: {
+        trigger: '.gallery-section',
+        start: 'top 70%',
+    },
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'power2.out'
+});
+
+// Product Family Selector
+const familyData = {
+    nova: {
+        title: 'NovaPack™',
+        desc: 'The flagship 1.0L container. Engineered for optimal everyday use with standard refrigeration shelf spacing.',
+        cap: '1.0L',
+        weight: '42g',
+        img: 'assets/images/product-family-shot.jpeg'
+    },
+    mini: {
+        title: 'NovaPack Mini™',
+        desc: 'Compact 500ml form factor. Perfect for on-the-go consumption without compromising freshness preservation.',
+        cap: '500ml',
+        weight: '28g',
+        img: 'assets/images/floating-product-shot.jpeg'
+    },
+    max: {
+        title: 'NovaPack Max™',
+        desc: 'Industrial 2.0L capacity featuring reinforced structural ribs for high-volume commercial environments.',
+        cap: '2.0L',
+        weight: '65g',
+        img: 'assets/images/product-family-shot.jpeg' // Reusing as instructed
+    },
+    eco: {
+        title: 'NovaPack Eco™',
+        desc: 'Ultra-lightweight variant achieving a 15% material reduction for maximum sustainability impact.',
+        cap: '1.0L',
+        weight: '35g',
+        img: 'assets/images/sustainability-visualization.jpeg'
+    }
+};
+
+const familyBtns = document.querySelectorAll('.family-btn');
+const fImg = document.getElementById('family-img');
+const fTitle = document.getElementById('family-title');
+const fDesc = document.getElementById('family-desc');
+const fCap = document.getElementById('family-cap');
+const fWeight = document.getElementById('family-weight');
+
+familyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active
+        familyBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const model = btn.dataset.model;
+        const data = familyData[model];
+
+        // Animate out
+        gsap.to([fImg, fTitle, fDesc, fCap, fWeight], {
+            opacity: 0,
+            y: 10,
+            duration: 0.3,
+            onComplete: () => {
+                fImg.src = data.img;
+                fTitle.textContent = data.title;
+                fDesc.textContent = data.desc;
+                fCap.textContent = data.cap;
+                fWeight.textContent = data.weight;
+
+                // Animate in
+                gsap.to([fImg, fTitle, fDesc, fCap, fWeight], {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.05,
+                    ease: 'power2.out'
+                });
+            }
+        });
+    });
+});
+
+// Sustainability Stats Animation
+const stats = document.querySelectorAll('.stat-number');
+stats.forEach(stat => {
+    const target = parseInt(stat.textContent);
+    
+    ScrollTrigger.create({
+        trigger: '.sustainability-section',
+        start: 'top 60%',
+        onEnter: () => {
+            gsap.fromTo(stat, 
+                { innerHTML: 0 }, 
+                { 
+                    innerHTML: target,
+                    duration: 2, 
+                    ease: 'power2.out',
+                    snap: { innerHTML: 1 },
+                    onUpdate: function() {
+                        stat.innerHTML = Math.round(this.targets()[0].innerHTML) + '<span class="pct">%</span>';
+                    }
+                }
+            );
+        },
+        once: true
+    });
+});
