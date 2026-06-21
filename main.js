@@ -68,14 +68,7 @@ magneticElements.forEach(elem => {
     });
 });
 
-// Hero Animation
-window.addEventListener('load', () => {
-    const tl = gsap.timeline();
-    tl.to('.hero-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
-      .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
-      .to('.hero-tagline', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.7')
-      .to('.scroll-indicator', { opacity: 1, duration: 1 }, '-=0.5');
-});
+// Hero Animation is now triggered after the preloader finishes
 
 // Image Sequence Scrubbing (Birth Section)
 const birthSection = document.querySelector('.birth-section');
@@ -90,18 +83,60 @@ if (canvas) {
 
     const images = [];
     const seq = { frame: 0 };
+    let loadedImages = 0;
+
+    const preloader = document.getElementById('preloader');
+    const preloaderBar = document.getElementById('preloader-bar');
+    const preloaderText = document.getElementById('preloader-text');
 
     for (let i = 0; i < frameCount; i++) {
         const img = new Image();
         img.src = currentFrame(i);
+        
+        img.onload = () => {
+            loadedImages++;
+            const progress = Math.floor((loadedImages / frameCount) * 100);
+            
+            // Update Preloader UI
+            if (preloaderBar) preloaderBar.style.width = `${progress}%`;
+            if (preloaderText) preloaderText.innerText = `${progress}%`;
+
+            // Initial render
+            if (i === 0) {
+                canvas.width = images[0].width;
+                canvas.height = images[0].height;
+                context.drawImage(images[0], 0, 0);
+            }
+
+            // Loading complete
+            if (loadedImages === frameCount) {
+                gsap.to(preloader, {
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        preloader.style.display = 'none';
+                        document.body.classList.remove('loading');
+                        
+                        // Fire hero animation after preloader finishes
+                        const tl = gsap.timeline();
+                        tl.to('.hero-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
+                          .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
+                          .to('.hero-tagline', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.7')
+                          .to('.scroll-indicator', { opacity: 1, duration: 1 }, '-=0.5');
+                    }
+                });
+            }
+        };
+        
+        img.onerror = () => {
+            // Fallback if an image fails to load
+            loadedImages++;
+        };
+
         images.push(img);
     }
-
-    images[0].onload = () => {
-        canvas.width = images[0].width;
-        canvas.height = images[0].height;
-        context.drawImage(images[0], 0, 0);
-    };
 
     gsap.to(seq, {
         frame: frameCount - 1,

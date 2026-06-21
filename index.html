@@ -14,7 +14,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
 </head>
-<body>
+<body class="loading">
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <img src="assets/images/lacktopak-industries-logo.png" alt="LactoPack Logo" class="preloader-logo" />
+            <div class="preloader-bar-container">
+                <div class="preloader-bar" id="preloader-bar"></div>
+            </div>
+            <div class="preloader-text" id="preloader-text">0%</div>
+        </div>
+    </div>
+
     <div class="cursor"></div>
 
     <nav class="navbar">
@@ -277,7 +288,7 @@
                     <img src="assets/images/lacktopak-industries-logo.png" alt="LactoPack Logo" class="brand-logo cta-brand-logo" />
                 </div>
                 <h2>The Future of Packaging.</h2>
-                <button class="magnetic-btn">
+                <button class="magnetic-btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
                     <span class="btn-text">Partner With Us</span>
                 </button>
             </div>
