@@ -4,7 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LactoPack | Engineering Freshness</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="LactoPack | Engineering Freshness">
     <meta name="description" content="NovaPack™ - The next-generation packaging container engineered for freshness preservation, structural safety, transportation efficiency, and sustainability.">
+    <meta name="keywords" content="LactoPack, NovaPack, packaging container, freshness preservation, structural safety, sustainable packaging, industrial packaging">
+    <meta name="author" content="LactoPack Industries">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.lactopack.com/">
+    <meta property="og:title" content="LactoPack | Engineering Freshness">
+    <meta property="og:description" content="NovaPack™ - The next-generation packaging container engineered for freshness preservation, structural safety, transportation efficiency, and sustainability.">
+    <meta property="og:image" content="https://www.lactopack.com/assets/images/hero-image-1.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.lactopack.com/">
+    <meta property="twitter:title" content="LactoPack | Engineering Freshness">
+    <meta property="twitter:description" content="NovaPack™ - The next-generation packaging container engineered for freshness preservation, structural safety, transportation efficiency, and sustainability.">
+    <meta property="twitter:image" content="https://www.lactopack.com/assets/images/hero-image-1.jpeg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/lacktopak-industries-logo.png">
+    <link rel="apple-touch-icon" href="assets/images/lacktopak-industries-logo.png">
+
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +50,8 @@
         </div>
     </div>
 
-    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
 
     <nav class="navbar">
         <div class="nav-container">
@@ -39,7 +64,20 @@
                 <a href="#gallery">Gallery</a>
                 <a href="#family">Models</a>
             </div>
-            <a href="#cta" class="nav-cta">Discover NovaPack™</a>
+            <div class="nav-actions">
+                <a href="#cta" class="nav-cta">Discover NovaPack™</a>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <a href="#birth">Origin</a>
+            <a href="#why">Benefits</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#family">Models</a>
         </div>
     </nav>
 
@@ -385,6 +423,12 @@
             </div>
         </div>
     </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to Top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
 
     <script src="main.js"></script>
 </body>

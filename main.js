@@ -29,44 +29,96 @@ gsap.ticker.add((time)=>{
 gsap.ticker.lagSmoothing(0);
 
 // Custom Cursor
-const cursor = document.querySelector('.cursor');
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorRing = document.querySelector('.cursor-ring');
 const magneticBtns = document.querySelectorAll('.magnetic-btn, .nav-links a, .nav-cta, .family-btn, .gallery-item');
 
-document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1,
-        ease: 'power2.out'
-    });
-});
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 992;
 
-magneticBtns.forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-        cursor.classList.add('active');
-    });
-    btn.addEventListener('mouseleave', () => {
-        cursor.classList.remove('active');
-        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
-    });
-});
+if (!isMobileDevice) {
+    document.addEventListener('mousemove', (e) => {
+        // Fast dot
+        gsap.to(cursorDot, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.1,
+            ease: 'power2.out'
+        });
 
-// Magnetic button effect
-const magneticElements = document.querySelectorAll('.magnetic-btn');
-magneticElements.forEach(elem => {
-    elem.addEventListener('mousemove', (e) => {
-        const rect = elem.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(elem, {
-            x: x * 0.3,
-            y: y * 0.3,
-            duration: 0.5,
+        // Slower ring (trailing effect)
+        gsap.to(cursorRing, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.3,
             ease: 'power2.out'
         });
     });
-});
+
+    magneticBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            cursorRing.classList.add('active');
+            cursorDot.style.opacity = '0';
+        });
+        btn.addEventListener('mouseleave', () => {
+            cursorRing.classList.remove('active');
+            cursorDot.style.opacity = '1';
+            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
+        });
+    });
+
+    // Magnetic button effect
+    const magneticElements = document.querySelectorAll('.magnetic-btn');
+    magneticElements.forEach(elem => {
+        elem.addEventListener('mousemove', (e) => {
+            const rect = elem.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            gsap.to(elem, {
+                x: x * 0.3,
+                y: y * 0.3,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+    });
+}
+
+// Mobile Menu
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+    });
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuBtn.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        });
+    });
+}
+
+// Back to Top Button
+const backToTopBtn = document.getElementById('back-to-top');
+
+if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        lenis.scrollTo(0, { duration: 1.5 });
+    });
+}
 
 // Hero Animation is now triggered after the preloader finishes
 
@@ -186,12 +238,21 @@ if (canvas) {
 
 // Reliable On-Scroll Reveal for Zigzag Rows
 gsap.utils.toArray('.zigzag-row').forEach((row) => {
-    ScrollTrigger.create({
-        trigger: row,
-        start: 'top 85%',
-        toggleClass: 'visible',
-        once: true
-    });
+    gsap.fromTo(row, 
+        { opacity: 0, y: 80 }, 
+        {
+            scrollTrigger: {
+                trigger: row,
+                start: 'top 85%',
+                once: true
+            },
+            opacity: 1,
+            y: 0,
+            duration: 1.8,
+            delay: 0.2,
+            ease: 'expo.out'
+        }
+    );
 });
 
 // Fade in all section headers
@@ -201,10 +262,11 @@ gsap.utils.toArray('.section-header').forEach((header) => {
             trigger: header,
             start: 'top 85%',
         },
-        y: 30,
+        y: 40,
         opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out'
+        duration: 1.5,
+        delay: 0.1,
+        ease: 'expo.out'
     });
 });
 
@@ -218,9 +280,9 @@ layers.forEach((layer, index) => {
         },
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        delay: index * 0.3,
-        ease: 'power2.out'
+        duration: 1.2,
+        delay: index * 0.4,
+        ease: 'expo.out'
     });
 });
 
@@ -232,9 +294,9 @@ gsap.to('.gallery-item', {
     },
     opacity: 1,
     y: 0,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: 'power2.out'
+    duration: 1.5,
+    stagger: 0.25,
+    ease: 'expo.out'
 });
 
 // Product Family Selector
