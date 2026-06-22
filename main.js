@@ -138,19 +138,43 @@ if (canvas) {
         images.push(img);
     }
 
-    gsap.to(seq, {
-        frame: frameCount - 1,
-        snap: "frame",
-        ease: "none",
+    const tl = gsap.timeline({
         scrollTrigger: {
             trigger: birthSection,
             start: "top top",
             end: "bottom bottom",
             scrub: 1.5,
             pin: '.birth-container',
-        },
-        onUpdate: render
+        }
     });
+
+    // 1. Animate the image sequence over the full timeline duration (1.0)
+    tl.to(seq, {
+        frame: frameCount - 1,
+        snap: "frame",
+        ease: "none",
+        onUpdate: render,
+        duration: 1
+    }, 0);
+
+    // 2. Animate the cards appearing and disappearing
+    // Card 1
+    tl.fromTo('.birth-card-1', 
+        { autoAlpha: 0, y: 50 }, 
+        { autoAlpha: 1, y: 0, duration: 0.1 }, 0.05);
+    tl.to('.birth-card-1', { autoAlpha: 0, y: -50, duration: 0.1 }, 0.25);
+
+    // Card 2
+    tl.fromTo('.birth-card-2', 
+        { autoAlpha: 0, y: 50 }, 
+        { autoAlpha: 1, y: 0, duration: 0.1 }, 0.35);
+    tl.to('.birth-card-2', { autoAlpha: 0, y: -50, duration: 0.1 }, 0.55);
+
+    // Card 3
+    tl.fromTo('.birth-card-3', 
+        { autoAlpha: 0, y: 50 }, 
+        { autoAlpha: 1, y: 0, duration: 0.1 }, 0.65);
+    tl.to('.birth-card-3', { autoAlpha: 0, y: -50, duration: 0.1 }, 0.85);
 
     function render() {
         if (images[seq.frame] && images[seq.frame].complete) {
